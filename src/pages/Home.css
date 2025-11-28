@@ -1,0 +1,32 @@
+/* src/pages/Home.css */
+
+.movie-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.carousel-img {
+  max-height: 400px;
+  object-fit: cover;
+}
+.movie-card {
+  height: 580px;       /* reduce full card height */
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: black;
+  color: aliceblue;
+}
+
+.movie-img {
+  height: 400px;       /* reduce image height */
+  object-fit: contain;   /* keeps image clean */
+}
+/* Make movie text white */
+.movie-card .card-title,
+.movie-card .card-text {
+  color: white !important;
+}

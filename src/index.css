@@ -1,0 +1,36 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #e8e8e8;
+}
+
+h4, h5, h6 {
+  color: #ff3d00;
+}
+
+.MuiCard-root:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.slick-slide img {
+  border-radius: 10px;
+}
+
+.MuiButton-root {
+  text-transform: none;
+  font-weight: bold;
+}
+
+.seat-regular { background-color: #4caf50; color: white; }
+.seat-vip { background-color: #ff9800; color: white; }
+.seat-booked { background-color: grey; color: white; }
+.seat-selected { background-color: #1976d2; color: white; }
+
+.seat-regular:hover, .seat-vip:hover { opacity: 0.8; }
+
+.swal2-popup { font-family: 'Roboto', sans-serif; }

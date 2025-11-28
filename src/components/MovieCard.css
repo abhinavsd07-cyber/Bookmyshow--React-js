@@ -1,0 +1,26 @@
+.movie-card {
+  width: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  
+}
+
+.movie-card:hover {
+  transform: scale(1.04);
+}
+
+.movie-card-img {
+  height: 260px;          /* Reduced height */
+  object-fit: cover;
+}
+
+.movie-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.movie-card-text {
+  font-size: 0.85rem;
+  color: #fcfcfc;
+}
