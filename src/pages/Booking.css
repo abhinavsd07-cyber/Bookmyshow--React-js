@@ -1,0 +1,31 @@
+.seats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background-color: #1a1a1a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.seat:hover {
+  transform: scale(1.1);
+}
+
+.seat.booked {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.seat.selected {
+  background-color: #ff2e2e;
+}

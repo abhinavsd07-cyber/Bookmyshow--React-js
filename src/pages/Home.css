@@ -1,108 +1,22 @@
-/* Horizontal scroll row */
-.scroll-row {
-  display: flex;
-  gap: 20px;
+.section-title {
+  margin: 40px 0 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #030303;
+}
+
+.section-scroll {
   overflow-x: auto;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   scroll-behavior: smooth;
 }
 
-/* Hide default scrollbar */
-.scroll-row::-webkit-scrollbar {
+.section-scroll::-webkit-scrollbar {
   display: none;
 }
-.scroll-row {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
 
-/* Each card in scroll */
-.scroll-card {
-  min-width: 260px; /* slightly wider */
-  flex: 0 0 auto;   /* prevents shrinking */
-}
-
-/* Movie card styling */
-.movie-card {
-  border: none;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  background-color: #1a1a1a;
-  color: #fff;
-  height: 480px; /* increased card height */
-}
-.movie-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
-}
-
-/* Image */
-.movie-img {
-  height: 360px; /* increased image height */
-  object-fit: contain;
-  border-bottom: 1px solid #333;
-}
-
-/* Card Body */
-.movie-card .card-body {
-  padding: 15px;
+.section-row {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 120px; /* remaining space for text & button */
-}
-.movie-card .card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ff2e2e;
-}
-.movie-card .card-text {
-  font-size: 0.95rem;
-  color: #ccc;
-  margin-bottom: 10px;
-}
-
-/* Buttons */
-.movie-card .btn-danger {
-  background-color: #ff2e2e;
-  border: none;
-  font-weight: 600;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-.movie-card .btn-danger:hover {
-  background-color: #ff5555;
-  transform: translateY(-2px);
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 992px) {
-  .scroll-card {
-    min-width: 240px;
-  }
-  .movie-card {
-    height: 440px;
-  }
-  .movie-img {
-    height: 320px;
-  }
-  .movie-card .card-body {
-    height: 120px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .scroll-card {
-    min-width: 200px;
-  }
-  .movie-card {
-    height: 380px;
-  }
-  .movie-img {
-    height: 280px;
-  }
-  .movie-card .card-body {
-    height: 100px;
-  }
+  gap: 25px;
+  padding: 10px 5px;
 }
