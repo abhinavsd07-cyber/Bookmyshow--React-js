@@ -11,24 +11,26 @@ export default function MovieCard({ movie }) {
   };
 
   return (
-    <Card className="movie-card shadow-sm ">
-      <Card.Img
-        variant="top"
-        src={movie.poster}
-        className="movie-card-img"
-        alt={movie.title}
-      />
+    <Card className="movie-card shadow-sm">
+  <Card.Img
+    variant="top"
+    src={movie.poster}
+    className="movie-card-img"
+    alt={movie.title}
+  />
 
-      <Card.Body>
-        <Card.Title className="movie-card-title">{movie.title}</Card.Title>
-        <Card.Text className="movie-card-text " >
-          {movie.genre} | ⭐ {movie.rating}
-        </Card.Text>
+  <Card.Body>
+    <Card.Title className="movie-card-title">{movie.title}</Card.Title>
 
-        <Button className="w-100 btn-danger" onClick={handleBookNow}>
-          Book Now
-        </Button>
-      </Card.Body>
-    </Card>
+    <Card.Text className="movie-card-text">
+      {movie.genre} | ⭐ {movie.rating}
+    </Card.Text>
+
+    <Button className="btn-danger" onClick={handleBookNow}>
+      Book Now
+    </Button>
+  </Card.Body>
+</Card>
+
   );
 }

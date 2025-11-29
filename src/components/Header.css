@@ -1,0 +1,100 @@
+.header {
+  background-color: #1a1a1a;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  font-family: 'Poppins', sans-serif;
+  height: 70px;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff2e2e;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.logo:hover {
+  color: #ff5555;
+}
+
+/* Menu + Search container */
+.menu-search-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Menu links */
+.menu {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+.menu li a {
+  text-decoration: none;
+  color: #ccc;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.menu li a:hover {
+  color: #ff2e2e;
+}
+
+/* Icons */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.icon {
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.icon:hover {
+  color: #ff2e2e;
+}
+
+/* Mobile Menu */
+.mobile-menu-icon {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #2a2a2a;
+    width: 200px;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 0 0 0 10px;
+    gap: 15px;
+  }
+  .menu.menu-mobile-open {
+    display: flex;
+  }
+  .mobile-menu-icon {
+    display: block;
+  }
+}
