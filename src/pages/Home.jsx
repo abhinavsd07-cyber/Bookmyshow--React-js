@@ -20,32 +20,32 @@ export default function Home() {
   return (
     <div style={{ paddingTop: "70px" }}>
       {/* ------------------ CAROUSEL ------------------ */}
-      <div id="carouselExampleIndicators" className="carousel slide">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1763188137924_linkinparkwebnew.jpg"
-              className="d-block w-100 carousel-img"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1761907921032_amusementparkdesktop.jpg"
-              className="d-block w-100 carousel-img"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1762856240840_littleboxofsweetsweb.jpg"
-              className="d-block w-100 carousel-img"
-            />
-          </div>
-        </div>
-      </div>
+     
+      <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1763188137924_linkinparkwebnew.jpg" className="d-block w-100" alt="..."/>
+    </div>
+    <div className="carousel-item">
+      <img src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1761907921032_amusementparkdesktop.jpg" className="d-block w-100" alt="..."/>
+    </div>
+    <div className="carousel-item">
+      <img src="https://assets-in-gm.bmscdn.com/promotions/cms/creatives/1762856240840_littleboxofsweetsweb.jpg" className="d-block w-100" alt="..."/>
+    </div>
+  </div>
+  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
+  </button>
+  <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
+  </button>
+</div>
 
       <Container>
         {/* ------------------ NOW SHOWING ------------------ */}
-        <h2 className="section-title">Now Showing</h2>
+        <h2 className="section-title text-light">Now Showing</h2>
         <div className="section-scroll">
           <div className="section-row">
             {movies.map((m) => (
@@ -54,9 +54,10 @@ export default function Home() {
                 <div className="card-body">
                   <h5 className="card-title">{m.title}</h5>
                   <p className="card-text">{m.genre}</p>
+                  {/* Navigate to movie details page */}
                   <button
                     className="btn btn-danger w-100"
-                    onClick={() => navigate(`/book/${m.id}`)}
+                    onClick={() => navigate(`/movie/${m.id}`)}
                   >
                     Book Now
                   </button>
@@ -67,7 +68,7 @@ export default function Home() {
         </div>
 
         {/* ------------------ LIVE EVENTS ------------------ */}
-        <h2 className="section-title">Live Events</h2>
+        <h2 className="section-title text-light">Live Events</h2>
         <div className="section-scroll">
           <div className="section-row">
             {events.map((ev) => (
@@ -83,7 +84,7 @@ export default function Home() {
         </div>
 
         {/* ------------------ PREMIERES ------------------ */}
-        <h2 className="section-title">Premieres</h2>
+        <h2 className="section-title text-light">Premieres</h2>
         <div className="section-scroll">
           <div className="section-row">
             {premieres.map((pr) => (

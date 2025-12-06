@@ -5,13 +5,14 @@
 /* ---------------- MOVIE CARD ---------------- */
 .movie-card {
   min-width: 260px;
-  height: 490px; /* slightly taller to accommodate bigger image */
+  height: 530px; /* slightly taller to accommodate bigger image */
   background: #121212;
   border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.28s ease, box-shadow 0.28s ease;
+  border: 2px solid rgb(211, 200, 200);
 }
 
 .movie-card:hover {
@@ -27,7 +28,7 @@
   margin: 0 auto;
   border-radius: 12px 12px 0 0;
   background-color: #000;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
  
 }

@@ -18,7 +18,7 @@ const Header = () => {
         </div>
 
         {/* Menu + Search */}
-        <div className="menu-search-container">
+        <div className="menu-search-container" style={{margin:"0"}}>
           <ul className={`menu ${menuOpen ? "menu-mobile-open" : ""}`}>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/movies">Movies</Link></li>

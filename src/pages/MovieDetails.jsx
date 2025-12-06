@@ -1,35 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../services/api";
-import { Container, Button } from "react-bootstrap";
+import axios from "axios";
 import "./MovieDetails.css";
 
-export default function MovieDetails() {
+const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    api.get(`/movies/${id}`).then((res) => setMovie(res.data));
+    axios
+      .get(`http://localhost:8000/movies/${id}`)
+      .then(res => setMovie(res.data))
+      .catch(() => alert("Failed to load movie details"));
   }, [id]);
 
-  if (!movie) return <p>Loading...</p>;
+  if (!movie) return <p className="movie-message">Loading...</p>;
 
   return (
-    <Container style={{ paddingTop: "70px" }}>
-      <div className="movie-details">
-        <img src={movie.poster} alt={movie.title} className="movie-detail-img" />
-        <div className="movie-detail-info">
-          <h2>{movie.title}</h2>
+    <div
+      className="movie-bg"
+      style={{ backgroundImage: `url(${movie.landscape})` }}
+    >
+      <div className="details-left-card">
+        <h1 className="movie-title">{movie.title}</h1>
+        <p className="movie-description">{movie.description}</p>
+
+        <div className="meta-list">
           <p><strong>Genre:</strong> {movie.genre}</p>
-          <p><strong>Rating:</strong> {movie.rating}</p>
-          <p><strong>Runtime:</strong> {movie.runtime}</p>
-          <p>{movie.description}</p>
-          <Button variant="danger" onClick={() => navigate(`/theatre/${id}`)}>
-            Proceed
-          </Button>
+          <p><strong>Duration:</strong> {movie.duration}</p>
+          <p><strong>Rating:</strong> {movie.rating}/10</p>
+          <p><strong>Language:</strong> {movie.language}</p>
+          <p><strong>Release:</strong> {movie.releaseDate}</p>
         </div>
+
+        <button
+          className="book-btn"
+          onClick={() => navigate(`/select-theatre/${movie.id}`)}
+        >
+          Book Tickets
+        </button>
       </div>
-    </Container>
+    </div>
   );
-}
+};
+
+export default MovieDetails;

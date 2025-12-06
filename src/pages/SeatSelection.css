@@ -1,22 +1,145 @@
-.seat-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 50px);
-  grid-gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
+/* GLOBAL DARK BACKGROUND */
+body {
+  background: #0d0d0d !important;
+  color: white;
+  font-family: 'Poppins', sans-serif;
 }
 
-.seat {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
+/* MAIN WRAPPER */
+.seat-page {
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  font-weight: 600;
+  gap: 40px;
+  padding-top: 40px;
+  padding-bottom: 60px;
 }
 
-.seat.available { background-color: #28a745; color: #fff; }
-.seat.selected  { background-color: #007bff; color: #fff; }
-.seat.booked    { background-color: #dc3545; color: #fff; cursor: not-allowed; }
+/* CENTER SEAT CONTAINER */
+.seat-container {
+  width: 900px;
+  padding: 28px;
+  text-align: center;
+  margin-right: 360px; /* SPACE FOR SUMMARY */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* THEATRE TITLE */
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #ff3d00;
+}
+
+/* SCREEN DISPLAY */
+.screen {
+  width: 100%;
+  padding: 12px 0;
+  margin: 18px 0;
+  font-weight: bold;
+  font-size: 14px;
+  border-top: 3px solid #444;
+  border-bottom: 3px solid #444;
+  color: #ddd;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #111, #0f0f0f);
+}
+
+/* BOOKING SUMMARY RIGHT (glass) */
+.booking-summary {
+  position: fixed;
+  top: 160px;
+  right: 40px;
+  width: 320px;
+  padding: 22px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  color: white;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* summary header */
+.booking-summary h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  color: #ff3d00;
+  text-align: center;
+}
+
+/* summary text */
+.booking-summary p {
+  margin: 8px 0;
+  color: #eaeaea;
+  font-size: 14px;
+}
+
+/* proceed button */
+.btn-proceed {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  border-radius: 10px;
+  background:  #e50914; 
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-proceed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(248,68,100,0.12);
+}
+
+/* SEAT GRID */
+.rows-wrapper { display:flex; flex-direction:column; gap:12px; margin-bottom:8px; }
+.seat-row { display:flex; justify-content:center; gap:10px; }
+.seat {
+  width: 38px;
+  height: 36px;
+  border-radius: 8px;
+  border: 2px solid #4caf50;
+  background: #151515;
+  color: #4caf50;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:700; cursor:pointer; transition: all .15s ease;
+}
+.seat:hover:not(.booked) { transform:scale(1.08); background:#212121; }
+.seat.selected {
+  background: linear-gradient(90deg,#43a047,#66bb6a);
+  color:#fff; border-color:#43a047; box-shadow:0 6px 18px rgba(67,160,71,0.18);
+  transform:scale(1.12);
+}
+.seat.booked { background:#4b4b4b; color:#cfcfcf; border-color:#444; cursor:not-allowed; transform:none; }
+
+/* category */
+.category-title { font-size:20px; font-weight:700; margin-top:26px; color:#ffb300 }
+
+/* legend */
+.legend-box {
+  display:flex; justify-content:center; gap:30px; margin-bottom:16px;
+  padding:12px; border-radius:12px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);
+}
+.legend-item { display:flex; align-items:center; gap:8px; color:#ddd; font-weight:600; }
+.legend-seat { width:26px; height:20px; border-radius:6px; border:2px solid #555; }
+.legend-seat.available { background:#151515; border-color:#4caf50; }
+.legend-seat.selected { background:#4caf50; border-color:#4caf50; }
+.legend-seat.booked { background:#4b4b4b; border-color:#444; }
+
+/* responsive - collapse summary on smaller screens */
+@media (max-width: 1350px) {
+  .seat-container { margin-right: 0; }
+  .booking-summary { right: 20px; }
+}
+
+@media (max-width: 1024px) {
+  .seat-page { flex-direction:column; align-items:center; }
+  .booking-summary { position:static; width:90%; margin-top:16px; }
+  .seat-container { width:95%; padding:18px; margin-right:0; }
+}

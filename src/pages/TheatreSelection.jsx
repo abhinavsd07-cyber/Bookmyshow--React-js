@@ -1,70 +1,69 @@
-// src/pages/TheatreSelection.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../services/api";
+import axios from "axios";
+import "./TheatreSelection.css";
 
-export default function TheatreSelection() {
+const TheatreSelection = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
-
-  const [movie, setMovie] = useState({});
-  const [selectedTheatre, setSelectedTheatre] = useState(null);
-  const [selectedTime, setSelectedTime] = useState("");
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    api.get(`/movies/${movieId}`)
-      .then(res => setMovie(res.data))
-      .catch(err => console.error("Failed to fetch movie", err));
+    axios
+      .get(`http://localhost:8000/movies/${movieId}`)
+      .then((res) => setMovie(res.data))
+      .catch(() => console.log("Failed to fetch theatre list"));
   }, [movieId]);
 
-  const handleProceed = () => {
-    if (!selectedTheatre || !selectedTime) {
-      alert("Please select theatre and showtime!");
-      return;
-    }
-    navigate(`/seat-selection/${movieId}/${selectedTheatre.id}/${selectedTime}`);
-  };
+  if (!movie) return <p className="ts-loading">Loading theatres...</p>;
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-danger mb-4">{movie.title} - Select Theatre & Showtime</h2>
+    <div className="ts-wrapper">
+      <h1 className="ts-heading text-light">Available Theatres</h1>
 
-      {/* Theatre Cards */}
-      <div className="row">
-        {movie.theatres && movie.theatres.map(theatre => (
-          <div className="col-md-4 mb-3" key={theatre.id}>
-            <div
-              className={`card p-3 shadow ${selectedTheatre?.id === theatre.id ? "border-danger" : ""}`}
-              onClick={() => {
-                setSelectedTheatre(theatre);
-                setSelectedTime(""); // reset time when theatre changes
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <h5>{theatre.name}</h5>
-              <p>Available Showtimes:</p>
-              <div className="d-flex flex-wrap">
-                {theatre.showtimes.map(time => (
-                  <button
-                    key={time}
-                    className={`btn btn-sm m-1 ${selectedTime === time ? "btn-danger" : "btn-outline-secondary"}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedTime(time);
-                    }}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
+      <div className="ts-theatre-list">
+        {movie.theatres.map((theatre) => (
+          <div className="ts-theatre-card" key={theatre.id}>
+
+            {/* Theatre Details */}
+            <div className="ts-theatre-info">
+              <h2 className="text-dark">{theatre.name}</h2>
+              <p className="ts-id">Theatre ID: {theatre.id}</p>
+              <p className="ts-location">{theatre.location}</p>
+
+              {theatre.screen && <p className="ts-small">Screen: {theatre.screen}</p>}
+              {theatre.phone && <p className="ts-small">Contact: {theatre.phone}</p>}
             </div>
+
+            {/* Shows */}
+            <div className="ts-showtimes">
+              {theatre.shows.map((show) => (
+                <div className="ts-show-card" key={show.showId}>
+                  
+                  <h3 className="ts-show-time text-dark">{show.time}</h3>
+                  <p className="ts-show-date text-dark">{show.date}</p>
+
+                  {show.type && <p className="ts-show-type">{show.type}</p>}
+                  {show.price && <p className="ts-show-price">₹{show.price}</p>}
+
+                  <button
+                    className="ts-show-btn"
+                    onClick={() =>
+                      navigate(`/seat/${movie.id}/${theatre.id}/${show.showId}`)
+                    }
+                  >
+                    Book
+                  </button>
+
+                </div>
+              ))}
+            </div>
+
           </div>
         ))}
       </div>
-
-      <button className="btn btn-danger mt-3" onClick={handleProceed}>
-        Proceed to Seat Selection
-      </button>
     </div>
   );
-}
+};
+
+export default TheatreSelection;

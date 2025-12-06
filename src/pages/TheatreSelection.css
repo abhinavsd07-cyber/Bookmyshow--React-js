@@ -1,0 +1,125 @@
+.ts-wrapper {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+.ts-heading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Theatre list container */
+.ts-theatre-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Theatre card */
+.ts-theatre-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  transition: 0.25s;
+}
+
+.ts-theatre-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 22px rgba(0,0,0,0.15);
+}
+
+/* Theatre Information */
+.ts-theatre-info h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ts-id {
+  color: #444;
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+.ts-location {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+/* Small Meta Text */
+.ts-small {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Show Slot Cards */
+.ts-showtimes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ts-show-card {
+  background: #f4f8ff;
+  border: 1px solid #d8e6ff;
+  border-radius: 12px;
+  padding: 14px;
+  width: 150px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.ts-show-card:hover {
+  background: #e9f1ff;
+}
+
+.ts-show-time {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ts-show-date {
+  font-size: 14px;
+  color: #555;
+}
+
+.ts-show-type {
+  font-size: 14px;
+  color: #00897b;
+  margin-top: 4px;
+}
+
+.ts-show-price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Book Button */
+.ts-show-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px 0;
+   background: linear-gradient(90deg,#ff3d00,#ff8f00);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.ts-show-btn:hover {
+   background: linear-gradient(#ff3d00,#ff8f00);
+}

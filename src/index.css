@@ -1,36 +1,163 @@
+/* ---------------------------------
+   GLOBAL IMPORTS
+---------------------------------- */
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
+/* ---------------------------------
+   GLOBAL BASE STYLES
+---------------------------------- */
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #e8e8e8;
+  padding: 0;
+  font-family: "Poppins", "Roboto", sans-serif;
+  background-color: #f5f7fa;
+  color: #111;
+  scroll-behavior: smooth;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #222;
 }
 
 h4, h5, h6 {
   color: #ff3d00;
 }
 
+/* ---------------------------------
+   CARD DESIGN
+---------------------------------- */
+.MuiCard-root {
+  border-radius: 14px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+  background: #fff;
+}
+
 .MuiCard-root:hover {
-  transform: scale(1.03);
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
 }
 
-.slick-slide img {
-  border-radius: 10px;
-}
-
+/* ---------------------------------
+   BUTTONS
+---------------------------------- */
 .MuiButton-root {
-  text-transform: none;
-  font-weight: bold;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+  transition: 0.25s;
 }
 
-.seat-regular { background-color: #4caf50; color: white; }
-.seat-vip { background-color: #ff9800; color: white; }
-.seat-booked { background-color: grey; color: white; }
-.seat-selected { background-color: #1976d2; color: white; }
+.MuiButton-containedPrimary {
+  background: linear-gradient(90deg,#ff3d00,#ff9100) !important;
+}
 
-.seat-regular:hover, .seat-vip:hover { opacity: 0.8; }
+.MuiButton-containedPrimary:hover {
+  background: linear-gradient(90deg,#e53935,#ff6f00) !important;
+}
 
-.swal2-popup { font-family: 'Roboto', sans-serif; }
+/* ---------------------------------
+   SLIDER
+---------------------------------- */
+.slick-slide img {
+  border-radius: 14px;
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #ff3d00;
+}
+
+/* ---------------------------------
+   SWEET ALERT
+---------------------------------- */
+.swal2-popup {
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 16px !important;
+}
+
+/* ---------------------------------
+   SEAT COLORS
+---------------------------------- */
+.seat-regular {
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.seat-vip {
+  background-color: #ff9800;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.seat-booked {
+  background-color: #b0b0b0;
+  color: #fff;
+  border-radius: 6px;
+  cursor: not-allowed !important;
+}
+
+.seat-selected {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 6px;
+}
+
+.seat-regular:hover,
+.seat-vip:hover {
+  opacity: 0.85;
+  transition: 0.2s;
+}
+
+/* ---------------------------------
+   GLOBAL FLEX HELPERS
+---------------------------------- */
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------------------------
+   CONTAINERS
+---------------------------------- */
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* ---------------------------------
+   SHADOWS & HOVER EFFECTS
+---------------------------------- */
+.shadow {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.hover-up {
+  transition: 0.3s;
+}
+
+.hover-up:hover {
+  transform: translateY(-5px);
+}
+
+/* ---------------------------------
+   UTILITY CLASSES
+---------------------------------- */
+.text-center {
+  text-align: center;
+}
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }

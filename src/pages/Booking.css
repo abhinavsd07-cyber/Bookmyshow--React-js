@@ -1,31 +1,93 @@
-.seats-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.seat {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  background-color: #1a1a1a;
+/* Full black background */
+.booking-wrapper {
+  background: #0d0d0d;
+  min-height: 100vh;
+  padding: 40px 0;
   color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.booking-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.2s;
+  justify-content: space-between;
+  gap: 30px;
 }
 
-.seat:hover {
-  transform: scale(1.1);
+/* Left Section */
+.booking-left {
+  flex: 1;
 }
 
-.seat.booked {
-  background-color: #555;
-  cursor: not-allowed;
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.seat.selected {
-  background-color: #ff2e2e;
+/* Movie Card */
+.movie-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.movie-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ff3d5c;
+}
+
+.details p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+/* Right Summary Box */
+.summary-box {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.summary-box h4 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #ff3d5c;
+}
+
+/* Summary Row */
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.summary-item.total {
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: none;
+  margin-top: 10px;
+}
+
+/* Button */
+.confirm-btn {
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #ff3d5c !important;
+  border: none !important;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.confirm-btn:hover {
+  background-color: #ff2040 !important;
 }
