@@ -2,116 +2,92 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiMenu, FiX } from "react-icons/fi";
-import api from "../services/api";
+import API from "../services/api";
 import "./Header.css";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch movies while typing
+  // Fetch movies when typing
   useEffect(() => {
-    if (!query.trim()) {
+    if (search.trim() === "") {
       setResults([]);
       return;
     }
 
-    api.get("/movies").then(res => {
-      const filtered = res.data.filter(m =>
-        m.title.toLowerCase().includes(query.toLowerCase())
-      );
-      setResults(filtered);
-    });
-  }, [query]);
+    const fetchResults = async () => {
+      const res = await API.get(`/movies?title_like=${search}`);
+      setResults(res.data);
+    };
 
-  const submitSearch = () => {
-    if (!query.trim()) return;
-    navigate(`/search?q=${query}`);
+    fetchResults();
+  }, [search]);
+
+  const handleSelectMovie = (id) => {
+    setSearch("");
     setResults([]);
-  };
-
-  const onKeyDown = (e) => {
-    if (e.key === "Enter") submitSearch();
+    navigate(`/movie/${id}`);
   };
 
   return (
-    <header className="header p-4">
+    <header className="header">
       <div className="header-container">
 
-        {/* Logo */}
+        {/* LOGO */}
         <div className="logo-container">
           <Link to="/" className="logo">BookMyShow</Link>
         </div>
 
-        {/* Search */}
-        <div className="search-container">
-          <BiSearch className="search-icon" onClick={submitSearch} />
+        {/* MENU LINKS */}
+        <div className="menu-search-container">
 
-          <input
-            type="text"
-            placeholder="Search for Movies, Events, Shows..."
-            className="search-input"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={onKeyDown}
-          />
-
-          {/* Search Results Dropdown */}
-          {results.length > 0 && (
-            <div className="search-results-box">
-              {results.map(movie => (
-                <div
-                  key={movie.id}
-                  className="search-result-item"
-                  onClick={() => {
-                    navigate(`/movie/${movie.id}`);
-                    setResults([]);
-                    setQuery("");
-                  }}
-                >
-                  <img src={movie.poster} alt="" />
-                  <span>{movie.title}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Menu */}
-        <div className="menu-container">
           <ul className={`menu ${menuOpen ? "menu-mobile-open" : ""}`}>
-            <li className="text-light" onClick={() =>
-              document.getElementById("now-showing").scrollIntoView({ behavior: "smooth" })
-            }>Home</li>
-
-            <li className="text-light" onClick={() =>
-              document.getElementById("now-showing").scrollIntoView({ behavior: "smooth" })
-            }>Movies</li>
-
-            <li className="text-light" onClick={() =>
-              document.getElementById("events").scrollIntoView({ behavior: "smooth" })
-            }>Events</li>
-
-            <li className="text-light" onClick={() =>
-              document.getElementById("premieres").scrollIntoView({ behavior: "smooth" })
-            }>Premieres</li>
-
-            <li className="text-light" onClick={() =>
-              document.getElementById("contact").scrollIntoView({ behavior: "smooth" })
-            }>Contact</li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/movies">Movies</Link></li>
+            <li><Link to="/events">Events</Link></li>
+            <li><Link to="/premieres">Premieres</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
 
-          {/* Mobile Menu Toggle */}
+          {/* SEARCH BAR */}
+          <div className="search-box">
+            <BiSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search Movies..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {/* RESULTS DROPDOWN */}
+            {results.length > 0 && (
+              <div className="search-results">
+                {results.map((movie) => (
+                  <div
+                    key={movie.id}
+                    className="search-item"
+                    onClick={() => handleSelectMovie(movie.id)}
+                  >
+                    <img src={movie.poster} alt="" />
+                    <span>{movie.title}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* MOBILE MENU BUTTON */}
           <div
             className="mobile-menu-icon"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </div>
-        </div>
 
+        </div>
       </div>
     </header>
   );
