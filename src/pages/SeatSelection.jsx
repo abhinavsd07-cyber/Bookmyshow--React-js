@@ -40,9 +40,11 @@ const SeatSelection = () => {
     return <p className="loading">Loading seat selection…</p>;
   }
 
+  // Toggle a single seat
   const toggleSeat = (type, rowIndex, seat) => {
     const seatId = `${type}-${rowIndex}-${seat}`;
     if (show.seats[type].bookedSeats.includes(seat)) return;
+
     setSelectedSeats((prev) =>
       prev.includes(seatId) ? prev.filter((s) => s !== seatId) : [...prev, seatId]
     );
@@ -63,7 +65,8 @@ const SeatSelection = () => {
       };
     });
 
-  const handleProceed = () => {
+  // Booking function
+  const handleProceed = async () => {
     if (!selectedSeats.length) {
       Swal.fire("Select seats", "Please choose at least one seat.", "warning");
       return;
@@ -71,25 +74,28 @@ const SeatSelection = () => {
 
     const payloadSeats = buildPayloadSeats();
 
-    // update local bookedSeats
-    setShow((prev) => {
-      const updated = JSON.parse(JSON.stringify(prev));
-      payloadSeats.forEach((p) => {
-        if (!updated.seats[p.type].bookedSeats.includes(p.seat)) {
-          updated.seats[p.type].bookedSeats.push(p.seat);
+    // Update local bookedSeats array
+    setShow((prevShow) => {
+      const updated = { ...prevShow };
+      payloadSeats.forEach((s) => {
+        if (!updated.seats[s.type].bookedSeats.includes(s.seat)) {
+          updated.seats[s.type].bookedSeats.push(s.seat);
         }
       });
       return updated;
     });
 
-    // clear selection
-    setSelectedSeats([]);
-
+    // Generate booking ID
     const bookingId = Math.floor(Math.random() * 900000) + 100000;
 
-    const seatsText = payloadSeats.map((p) => `${p.type}-${p.seat}`).join(", ");
+    // Prepare seat text
+    const seatsText = payloadSeats.map((s) => `${s.type.toUpperCase()}-${s.seat}`).join(", ");
 
-    Swal.fire({
+    // Clear selection
+    setSelectedSeats([]);
+
+    // Show confirmation
+    const result = await Swal.fire({
       title: "Booking Confirmed!",
       html: `
         <p><b>Movie:</b> ${movie.title}</p>
@@ -104,84 +110,79 @@ const SeatSelection = () => {
       confirmButtonText: "Download Ticket",
       cancelButtonText: "Close",
       confirmButtonColor: "#f84464",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await generateTicketPDF({ bookingId, payloadSeats });
-        Swal.fire("Downloaded!", "Your ticket has been saved.", "success");
-      }
     });
+
+    if (result.isConfirmed) {
+      await generateTicketPDF({ bookingId, payloadSeats });
+      Swal.fire("Downloaded!", "Your ticket has been saved.", "success");
+    }
   };
 
+  // Generate PDF ticket
   const generateTicketPDF = async ({ bookingId, payloadSeats }) => {
-  try {
-    // create a temporary div for ticket
-    const ticketDiv = document.createElement("div");
-    ticketDiv.style.width = "480px";
-    ticketDiv.style.padding = "20px";
-    ticketDiv.style.background = "#ffffff";
-    ticketDiv.style.color = "#111";
-    ticketDiv.style.borderRadius = "12px";
-    ticketDiv.style.fontFamily = "Poppins, Arial, sans-serif";
-    ticketDiv.style.boxSizing = "border-box";
+    try {
+      const ticketDiv = document.createElement("div");
+      ticketDiv.style.width = "480px";
+      ticketDiv.style.padding = "20px";
+      ticketDiv.style.background = "#fff";
+      ticketDiv.style.color = "#111";
+      ticketDiv.style.borderRadius = "12px";
+      ticketDiv.style.fontFamily = "Poppins, Arial, sans-serif";
+      ticketDiv.style.boxSizing = "border-box";
 
-    // group seats by type
-    const groupedSeats = {};
-    payloadSeats.forEach(s => {
-      if (!groupedSeats[s.type]) groupedSeats[s.type] = [];
-      groupedSeats[s.type].push(s.seat);
-    });
-    const seatsHtml = Object.keys(groupedSeats)
-      .map(t => `<div><strong>${t.toUpperCase()}:</strong> ${groupedSeats[t].join(", ")}</div>`)
-      .join("");
+      const groupedSeats = {};
+      payloadSeats.forEach((s) => {
+        if (!groupedSeats[s.type]) groupedSeats[s.type] = [];
+        groupedSeats[s.type].push(s.seat);
+      });
+      const seatsHtml = Object.keys(groupedSeats)
+        .map((t) => `<div><strong>${t.toUpperCase()}:</strong> ${groupedSeats[t].join(", ")}</div>`)
+        .join("");
 
-    // insert poster image
-    const posterHtml = movie.poster
-      ? `<img src="${movie.poster}" style="width:140px;height:200px;object-fit:cover;border-radius:8px;margin-right:16px" />`
-      : `<div style="width:140px;height:200px;background:#eee;display:flex;align-items:center;justify-content:center;color:#444;border-radius:8px;margin-right:16px">No Image</div>`;
+      const posterHtml = movie.poster
+        ? `<img src="${movie.poster}" style="width:140px;height:200px;object-fit:cover;border-radius:8px;margin-right:16px" />`
+        : `<div style="width:140px;height:200px;background:#eee;display:flex;align-items:center;justify-content:center;color:#444;border-radius:8px;margin-right:16px">No Image</div>`;
 
-    ticketDiv.innerHTML = `
-      <div style="display:flex;">
-        ${posterHtml}
-        <div>
-          <h2 style="margin:0 0 6px 0;">${movie.title}</h2>
-          <p>${theatre.name} • ${theatre.location}</p>
-          <p>Date: <strong>${show.date}</strong></p>
-          <p>Time: <strong>${show.time}</strong></p>
-          ${seatsHtml}
-          <p>Booking ID: <strong>${bookingId}</strong></p>
+      ticketDiv.innerHTML = `
+        <div style="display:flex;">
+          ${posterHtml}
+          <div>
+            <h2 style="margin:0 0 6px 0;">${movie.title}</h2>
+            <p>${theatre.name} • ${theatre.location}</p>
+            <p>Date: <strong>${show.date}</strong></p>
+            <p>Time: <strong>${show.time}</strong></p>
+            ${seatsHtml}
+            <p>Booking ID: <strong>${bookingId}</strong></p>
+          </div>
         </div>
-      </div>
-      <hr style="margin:16px 0">
-      <div style="font-size:12px;color:#555;display:flex;justify-content:space-between">
-        <span>Generated: ${new Date().toLocaleString()}</span>
-        <span>Enjoy the show 🎬</span>
-      </div>
-    `;
+        <hr style="margin:16px 0">
+        <div style="font-size:12px;color:#555;display:flex;justify-content:space-between">
+          <span>Generated: ${new Date().toLocaleString()}</span>
+          <span>Enjoy the show 🎬</span>
+        </div>
+      `;
 
-    ticketDiv.style.position = "fixed";
-    ticketDiv.style.left = "-9999px";
-    document.body.appendChild(ticketDiv);
+      ticketDiv.style.position = "fixed";
+      ticketDiv.style.left = "-9999px";
+      document.body.appendChild(ticketDiv);
 
-    // capture as canvas
-    const canvas = await html2canvas(ticketDiv, { scale: 3, useCORS: true, backgroundColor: null });
-    const imgData = canvas.toDataURL("image/png");
+      const canvas = await html2canvas(ticketDiv, { scale: 3, useCORS: true, backgroundColor: null });
+      const imgData = canvas.toDataURL("image/png");
 
-    // create PDF
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const imgProps = pdf.getImageProperties(imgData);
-    const imgWidth = pdfWidth - 20;
-    const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-    pdf.addImage(imgData, "PNG", 10, 15, imgWidth, imgHeight);
-    pdf.save(`${movie.title.replace(/\s+/g, "_")}_ticket_${bookingId}.pdf`);
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgWidth = pdfWidth - 20;
+      const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 10, 15, imgWidth, imgHeight);
+      pdf.save(`${movie.title.replace(/\s+/g, "_")}_ticket_${bookingId}.pdf`);
 
-    document.body.removeChild(ticketDiv);
-  } catch (err) {
-    console.error("PDF generation failed:", err);
-    alert("Failed to generate ticket PDF");
-  }
-};
-
+      document.body.removeChild(ticketDiv);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      Swal.fire("Error", "Failed to generate ticket PDF.", "error");
+    }
+  };
 
   return (
     <div className="seat-page mt-5">
@@ -205,7 +206,7 @@ const SeatSelection = () => {
                     <div
                       key={seat}
                       className={isBooked(type, seat) ? "seat booked" : isSelected(type, rowIndex, seat) ? "seat selected" : "seat available"}
-                      onClick={() => !isBooked(type, seat) && toggleSeat(type, rowIndex, seat)}
+                      onClick={() => toggleSeat(type, rowIndex, seat)}
                     >
                       {seat}
                     </div>
@@ -223,7 +224,7 @@ const SeatSelection = () => {
         <p><b>Theatre:</b> {theatre.name}</p>
         <p><b>Date:</b> {show.date}</p>
         <p><b>Time:</b> {show.time}</p>
-        <p><b>Seats:</b> {selectedSeats.length ? selectedSeats.join(", ") : "None"}</p>
+        <p><b>Seats:</b> {selectedSeats.length ? selectedSeats.map(s => s.split("-")[2]).join(", ") : "None"}</p>
         <button className="btn-proceed" disabled={selectedSeats.length === 0} onClick={handleProceed}>
           Proceed & Download
         </button>
