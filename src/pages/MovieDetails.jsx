@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./MovieDetails.css";
 
+
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/movies/${id}`)
+      .get(`https://bookmyshow-server-json.onrender.com/${id}`)
       .then(res => setMovie(res.data))
       .catch(() => alert("Failed to load movie details"));
   }, [id]);

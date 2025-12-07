@@ -19,7 +19,7 @@ const SeatSelection = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/movies/${movieId}`)
+      .get(`https://bookmyshow-server-json.onrender.com/${movieId}`)
       .then((res) => {
         const movieData = res.data;
         setMovie(movieData);
@@ -72,7 +72,7 @@ const SeatSelection = () => {
       // fetch poster as base64 using your server proxy to avoid CORS & embedding issues
       let posterBase64 = null;
       try {
-        const proxyResp = await axios.get("http://localhost:8000/image-proxy", {
+        const proxyResp = await axios.get("https://bookmyshow-server-json.onrender.com/image-proxy", {
           params: { url: movie.poster },
         });
         posterBase64 = proxyResp.data.base64;
@@ -164,7 +164,7 @@ const SeatSelection = () => {
     const payloadSeats = buildPayloadSeats();
 
     try {
-      const res = await axios.post("http://localhost:8000/book", {
+      const res = await axios.post("https://bookmyshow-server-json.onrender.com/book", {
         movieId: parseInt(movieId, 10),
         theatreId: parseInt(theatreId, 10),
         showId: parseInt(showId, 10),

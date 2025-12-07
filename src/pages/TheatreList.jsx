@@ -14,12 +14,12 @@ const TheatreSelection = () => {
 
   useEffect(() => {
     // Get movie details
-    axios.get(`http://localhost:8000/movies/${id}`)
+    axios.get(`https://bookmyshow-server-json.onrender.com/${id}`)
       .then(res => setMovie(res.data))
       .catch(err => console.error(err));
 
     // Get theatres showing this movie
-    axios.get(`http://localhost:8000/theatres`)
+    axios.get(`https://bookmyshow-server-json.onrender.com`)
       .then(res => {
         // Filter theatres which have this movie
         const filtered = res.data.filter(theatre =>

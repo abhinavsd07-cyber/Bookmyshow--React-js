@@ -10,7 +10,7 @@ const TheatreSelection = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/movies/${movieId}`)
+      .get(`https://bookmyshow-server-json.onrender.com/${movieId}`)
       .then((res) => setMovie(res.data))
       .catch(() => console.log("Failed to fetch theatre list"));
   }, [movieId]);
