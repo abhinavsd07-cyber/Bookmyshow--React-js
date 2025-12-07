@@ -4,7 +4,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="footer-container">
         <div className="footer-column">
           <h2 className="footer-logo">BookMyShow</h2>
@@ -13,11 +13,58 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Quick Links</h3>
           <ul>
-            <li>Home</li>
-            <li>Movies</li>
-            <li>Events</li>
-            <li>Premieres</li>
-            <li>Contact</li>
+           <li
+              className="text-light"
+              onClick={() => {
+                document
+                  .getElementById("now-showing")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Home
+            </li>
+
+            <li
+              className="text-light"
+              onClick={() => {
+                document
+                  .getElementById("now-showing")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Movies
+            </li>
+
+            <li
+              className="text-light"
+              onClick={() => {
+                document
+                  .getElementById("events")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Events
+            </li>
+
+            <li
+              className="text-light"
+              onClick={() => {
+                document
+                  .getElementById("premieres")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Premieres
+            </li>
+            <li className="text-light"
+              onClick={() =>
+                document
+                  .getElementById("contact")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Contact
+            </li>
           </ul>
         </div>
         <div className="footer-column">

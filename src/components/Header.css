@@ -1,132 +1,162 @@
-/* ===========================
-   Global Header Styling
-=========================== */
+/* ================== HEADER ================== */
+
 .header {
   width: 100%;
-  background: #000000;
-  padding: 30px 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  position: sticky;
+  background: #000;
+  padding: 10px 0;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.25);
 }
 
 .header-container {
   width: 92%;
-  max-width: 1280px;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 25px;
 }
 
-
-/* ===========================
-   Logo Styling
-=========================== */
-.logo-container .logo {
+/* -------- Logo -------- */
+.logo {
   font-size: 28px;
   font-weight: 700;
-  text-decoration: none;
   color: #e50914;
+  text-decoration: none;
   letter-spacing: 1px;
-  transition: 0.3s ease;
 }
 
-.logo:hover {
-  color: #ff2e3a;
+/* -------- Search Bar -------- */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 5px 12px;
+  border-radius: 25px;
+  border: 1px solid #333;
+  width: 350px;
+  flex-shrink: 0;
 }
 
-/* ===========================
-   Desktop Menu Styling
-=========================== */
+.search-icon {
+  font-size: 20px;
+  color: #bbb;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  margin-left: 8px;
+  width: 100%;
+  font-size: 15px;
+}
+
+.search-input::placeholder {
+  color: #777;
+}
+
+/* -------- Menu -------- */
+.menu-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
 .menu {
   display: flex;
-  gap: 30px;
+  gap: 25px;
   list-style: none;
 }
-.menu-search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;     /* space between menu and icons */
-}
-
 
 .menu li a {
   text-decoration: none;
-  color: #ffffffcc;
-  font-size: 16px;
-  transition: 0.25s ease;
-  padding-bottom: 2px;
-  border-bottom: 2px solid transparent;
+  font-size: 17px;
+  color: #fff;
+  transition: 0.3s ease;
 }
 
 .menu li a:hover {
-  color: #fff;
-  border-bottom: 2px solid #e50914;
+  color: #e50914;
 }
 
-/* ===========================
-   Search & Mobile Icon Section
-=========================== */
-.icons {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.icon {
-  font-size: 22px;
-  color: #fff;
-  cursor: pointer;
-  opacity: 0.85;
-  transition: 0.2s;
-}
-
-.icon:hover {
-  opacity: 1;
-}
-
-/* ===========================
-   Mobile Menu Button
-=========================== */
+/* -------- Mobile Menu Icon -------- */
 .mobile-menu-icon {
-  display: none;
-  font-size: 28px;
+  font-size: 24px;
   color: #fff;
+  display: none;
   cursor: pointer;
 }
 
-/* ===========================
-   Mobile Responsive Styles
-=========================== */
-@media (max-width: 768px) {
+/* ============ MOBILE RESPONSIVE ============ */
 
+@media (max-width: 850px) {
+  .search-container {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
   .menu {
     position: fixed;
-    top: 70px;
+    top: 60px;
     right: -100%;
     width: 60%;
     height: 100vh;
-    flex-direction: column;
     background: #111;
-    padding: 40px 20px;
-    gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-top: 50px;
     transition: 0.4s ease-in-out;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.4);
   }
 
   .menu-mobile-open {
     right: 0;
   }
 
-  .menu li a {
-    font-size: 18px;
-    color: #fff;
-  }
-
   .mobile-menu-icon {
     display: block;
   }
 }
+/* Search Dropdown */
+.search-results-box {
+  position: absolute;
+  color: white;
+  top: 60px;
+  width: 350px;
+ 
+  background: #1c1c1c;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.search-result-item:hover {
+  background: #333;
+}
+
+.search-result-item img {
+  width: 40px;
+  height: 55px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.search-container {
+  position: relative;
+}
+

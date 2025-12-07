@@ -45,59 +45,65 @@ export default function Home() {
 
       <Container>
         {/* ------------------ NOW SHOWING ------------------ */}
-        <h2 className="section-title text-light">Now Showing</h2>
-        <div className="section-scroll">
-          <div className="section-row">
-            {movies.map((m) => (
-              <div key={m.id} className="movie-card">
-                <img src={m.poster} className="movie-img" />
-                <div className="card-body">
-                  <h5 className="card-title">{m.title}</h5>
-                  <p className="card-text">{m.genre}</p>
-                  {/* Navigate to movie details page */}
-                  <button
-                    className="btn btn-danger w-100"
-                    onClick={() => navigate(`/movie/${m.id}`)}
-                  >
-                    Book Now
-                  </button>
+        <section  id="now-showing">
+          <h2 className="section-title text-light">Now Showing</h2>
+          <div className="section-scroll">
+            <div className="section-row">
+              {movies.map((m) => (
+                <div key={m.id} className="movie-card">
+                  <img src={m.poster} className="movie-img" />
+                  <div className="card-body">
+                    <h5 className="card-title">{m.title}</h5>
+                    <p className="card-text">{m.genre}</p>
+                    {/* Navigate to movie details page */}
+                    <button
+                      className="btn btn-danger w-100"
+                      onClick={() => navigate(`/movie/${m.id}`)}
+                    >
+                      Book Now
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* ------------------ LIVE EVENTS ------------------ */}
-        <h2 className="section-title text-light">Live Events</h2>
-        <div className="section-scroll">
-          <div className="section-row">
-            {events.map((ev) => (
-              <div key={ev.id} className="live-card">
-                <img src={ev.poster} className="live-img" />
-                <div className="live-card-body">
-                  <h5>{ev.title}</h5>
-                  <p>{ev.genre}</p>
+        <section id="events">
+          <h2 className="section-title text-light">Live Events</h2>
+          <div className="section-scroll">
+            <div className="section-row">
+              {events.map((ev) => (
+                <div key={ev.id} className="live-card">
+                  <img src={ev.poster} className="live-img" />
+                  <div className="live-card-body">
+                    <h5>{ev.title}</h5>
+                    <p>{ev.genre}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* ------------------ PREMIERES ------------------ */}
-        <h2 className="section-title text-light">Premieres</h2>
-        <div className="section-scroll">
-          <div className="section-row">
-            {premieres.map((pr) => (
-              <div key={pr.id} className="premiere-card">
-                <img src={pr.poster} className="premiere-img" />
-                <div className="live-card-body">
-                  <h5>{pr.title}</h5>
-                  <p>{pr.genre}</p>
+        <section  id="premieres">
+          <h2 className="section-title text-light">Premieres</h2>
+          <div className="section-scroll">
+            <div className="section-row">
+              {premieres.map((pr) => (
+                <div key={pr.id} className="premiere-card">
+                  <img src={pr.poster} className="premiere-img" />
+                  <div className="live-card-body">
+                    <h5>{pr.title}</h5>
+                    <p>{pr.genre}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       </Container>
     </div>
   );

@@ -236,7 +236,7 @@ const SeatSelection = () => {
   };
 
   return (
-    <div className="seat-page">
+    <div className="seat-page mt-5">
       <div className="seat-container">
         <div className="legend-box">
           <div className="legend-item"><span className="legend-seat available"></span> Available</div>

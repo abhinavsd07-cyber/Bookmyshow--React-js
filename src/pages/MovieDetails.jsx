@@ -23,15 +23,15 @@ const MovieDetails = () => {
       style={{ backgroundImage: `url(${movie.landscape})` }}
     >
       <div className="details-left-card">
-        <h1 className="movie-title">{movie.title}</h1>
+        <h1 className="movie-title fs-1 ">{movie.title}</h1>
         <p className="movie-description">{movie.description}</p>
 
         <div className="meta-list">
           <p><strong>Genre:</strong> {movie.genre}</p>
           <p><strong>Duration:</strong> {movie.duration}</p>
           <p><strong>Rating:</strong> {movie.rating}/10</p>
-          <p><strong>Language:</strong> {movie.language}</p>
-          <p><strong>Release:</strong> {movie.releaseDate}</p>
+          <p><strong>About:</strong> {movie.about}</p>
+         
         </div>
 
         <button
