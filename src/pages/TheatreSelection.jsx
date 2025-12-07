@@ -51,13 +51,22 @@ const TheatreSelection = () => {
             <div className="ts-showtimes">
               {theatre?.shows?.map((show) => (
                 <div className="ts-show-card" key={show.showId}>
-                  <h5 className="ts-show-time text-light">{show.time}</h5>
+                  <h4 className="ts-show-time text-light">{show.time}</h4>
                   <p className="ts-show-date text-light">{show.date}</p>
                   {show.type && <p className="ts-show-type">{show.type}</p>}
 
                   {/* Price from seats (recliner as default) */}
                   {show.seats?.recliner && (
-                    <p className="ts-show-price">₹{show.seats.recliner.price}</p>
+                    <p className="ts-show-price">recliner:₹{show.seats.recliner.price}</p>
+                    
+                  )}
+                  {show.seats?.platinum && (
+                    <p className="ts-show-price">platinum:₹{show.seats.platinum.price}</p>
+                    
+                  )}
+                  {show.seats?.gold && (
+                    <p className="ts-show-price">gold:₹{show.seats.gold.price}</p>
+                    
                   )}
 
                   <button
