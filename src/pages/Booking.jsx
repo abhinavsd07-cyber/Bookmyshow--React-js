@@ -30,10 +30,30 @@ export default function Booking() {
   const seatPrice = 200;
   const totalPrice = seatPrice * selectedSeats.length;
 
+  const handleConfirm = () => {
+    api.post("/bookings", {
+      movieId: movie.id,
+      theatreId: theatre.id,
+      time: time,
+      seats: selectedSeats,
+      movieTitle: movie.title,
+      theatreName: theatre.name,
+      total: totalPrice
+    })
+    .then(() => {
+      alert("Booking Successful!");
+      navigate("/");
+    })
+    .catch((err) => {
+      console.error("Booking Error:", err);
+      alert("Booking failed. Check API connection.");
+    });
+  };
+
   return (
     <div className="booking-wrapper">
       <Container className="booking-container">
-        {/* LEFT */}
+
         <div className="booking-left">
           <h2 className="page-title">Booking Summary</h2>
 
@@ -49,7 +69,6 @@ export default function Booking() {
           </div>
         </div>
 
-        {/* RIGHT */}
         <div className="summary-box">
           <h4>Payment Details</h4>
 
@@ -63,28 +82,11 @@ export default function Booking() {
             <span>₹{totalPrice}</span>
           </div>
 
-          <Button
-            className="confirm-btn"
-            onClick={() => {
-              api
-                .post("/book", {
-                  movieId: movie.id,
-                  theatreId: theatre.id,
-                  showId: id,
-                  seats: selectedSeats.map((seat) => ({
-                    seat,
-                    type: "gold",
-                  })),
-                })
-                .then(() => {
-                  alert("Booking Successful!");
-                  navigate("/");
-                });
-            }}
-          >
+          <Button className="confirm-btn" onClick={handleConfirm}>
             Confirm Booking
           </Button>
         </div>
+
       </Container>
     </div>
   );

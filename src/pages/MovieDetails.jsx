@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./MovieDetails.css";
 
-
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,8 +10,9 @@ const MovieDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://bookmyshow-server-json.onrender.com/${id}`)
-      .then(res => setMovie(res.data))
+      .get(`https://bookmyshow-server-json.onrender.com/movies/${id}`)
+
+      .then((res) => setMovie(res.data))
       .catch(() => alert("Failed to load movie details"));
   }, [id]);
 
@@ -28,11 +28,18 @@ const MovieDetails = () => {
         <p className="movie-description">{movie.description}</p>
 
         <div className="meta-list">
-          <p><strong>Genre:</strong> {movie.genre}</p>
-          <p><strong>Duration:</strong> {movie.duration}</p>
-          <p><strong>Rating:</strong> {movie.rating}/10</p>
-          <p><strong>About:</strong> {movie.about}</p>
-         
+          <p>
+            <strong>Genre:</strong> {movie.genre}
+          </p>
+          <p>
+            <strong>Duration:</strong> {movie.duration}
+          </p>
+          <p>
+            <strong>Rating:</strong> {movie.rating}/10
+          </p>
+          <p>
+            <strong>About:</strong> {movie.about}
+          </p>
         </div>
 
         <button
