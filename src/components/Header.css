@@ -55,6 +55,7 @@
 .search-box {
   position: relative;
   display: flex;
+  
   align-items: center;
   background: #1c1c1c;
   padding: 7px 14px;
