@@ -11,7 +11,7 @@ const Header = () => {
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch movies when typing
+  // Fetch search results
   useEffect(() => {
     if (search.trim() === "") {
       setResults([]);
@@ -19,8 +19,12 @@ const Header = () => {
     }
 
     const fetchResults = async () => {
-      const res = await API.get(`/movies?title_like=${search}`);
-      setResults(res.data);
+      try {
+        const res = await API.get(`/movies?title_like=${search}`);
+        setResults(res.data);
+      } catch (error) {
+        console.log("Search error:", error);
+      }
     };
 
     fetchResults();
@@ -32,27 +36,40 @@ const Header = () => {
     navigate(`/movie/${id}`);
   };
 
-  return (
-    <header className="header">
-      <div className="header-container">
+  // Scroll to a section on homepage
+  const goToSection = (id) => {
+    navigate("/"); // Go to home page
 
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 300);
+
+    setMenuOpen(false);
+  };
+
+  return (
+    <header className="header p-4">
+      <div className="header-container">
         {/* LOGO */}
         <div className="logo-container">
-          <Link to="/" className="logo">BookMyShow</Link>
+          <Link to="/" className="logo">
+            BookMyShow
+          </Link>
         </div>
 
-        {/* MENU LINKS */}
         <div className="menu-search-container">
-
+          {/* MENU LINKS */}
           <ul className={`menu ${menuOpen ? "menu-mobile-open" : ""}`}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/movies">Movies</Link></li>
-            <li><Link to="/events">Events</Link></li>
-            <li><Link to="/premieres">Premieres</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li className="text-light"onClick={() => goToSection("now-showing")}>Movies</li>
+            <li className="text-light"onClick={() => goToSection("events")}>Events</li>
+            <li className="text-light"onClick={() => goToSection("premieres")}>Premieres</li>
+            <li  className="text-light"onClick={() => goToSection("contact")}>Contact</li>
           </ul>
 
-          {/* SEARCH BAR */}
+          {/* SEARCH BOX */}
           <div className="search-box">
             <BiSearch className="search-icon" />
             <input
@@ -62,7 +79,7 @@ const Header = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            {/* RESULTS DROPDOWN */}
+            {/* SEARCH RESULTS */}
             {results.length > 0 && (
               <div className="search-results">
                 {results.map((movie) => (
@@ -71,7 +88,7 @@ const Header = () => {
                     className="search-item"
                     onClick={() => handleSelectMovie(movie.id)}
                   >
-                    <img src={movie.poster} alt="" />
+                    <img src={movie.poster} alt={movie.title} />
                     <span>{movie.title}</span>
                   </div>
                 ))}
@@ -86,7 +103,6 @@ const Header = () => {
           >
             {menuOpen ? <FiX /> : <FiMenu />}
           </div>
-
         </div>
       </div>
     </header>
